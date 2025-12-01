@@ -53,13 +53,23 @@ class Server:
                 - next_index: the next index to query with
                 - page_size: the current page size
                 - data: the actual page of the dataset
-
-        TODO: Implement this method
-        Hints:
-        1. Use assert to verify that index is in a valid range
-        2. Use indexed_dataset() to get the indexed data
-        3. The method should handle cases where items are deleted
-        4. Even if some indexes are missing, you should return page_size items
-        5. next_index should be the index after the last item returned
         """
-        pass
+        indexed_data = self.indexed_dataset()
+        max_index = max(indexed_data.keys())
+
+        assert isinstance(index, int) and index >= 0 and index <= max_index
+
+        data = []
+        current_index = index
+
+        while len(data) < page_size and current_index <= max_index:
+            if current_index in indexed_data:
+                data.append(indexed_data[current_index])
+            current_index += 1
+
+        return {
+            'index': index,
+            'next_index': current_index,
+            'page_size': len(data),
+            'data': data
+        }
