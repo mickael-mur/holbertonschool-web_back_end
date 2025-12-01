@@ -19,7 +19,9 @@ def index_range(page: int, page_size: int) -> tuple:
         tuple: A tuple containing the start index and end index
     """
     # TODO: Copy your implementation from 0-simple_helper_function.py
-    pass
+    start_index = (page - 1) * page_size
+    end_index = start_index + page_size
+    return (start_index, end_index)
 
 
 class Server:
@@ -51,13 +53,9 @@ class Server:
 
         Returns:
             List[List]: A list of rows for the requested page
-
-        TODO: Implement this method
-        Hints:
-        1. Use assert to verify that page and page_size are integers > 0
-        2. Use index_range to get the start and end indexes
-        3. Use dataset() to get the data
-        4. Return the appropriate slice of the dataset
-        5. If indexes are out of range, return an empty list
         """
-        pass
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        all_data = self.dataset()
+        start_index, end_index = index_range(page, page_size)
+        return all_data[start_index:end_index]
