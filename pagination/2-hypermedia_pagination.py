@@ -17,9 +17,16 @@ def index_range(page: int, page_size: int) -> tuple:
 
     Returns:
         tuple: A tuple containing the start index and end index
+
+    Example:
+        >>> index_range(1, 7)
+        (0, 7)
+        >>> index_range(3, 15)
+        (30, 45)
     """
-    # TODO: Copy your implementation from previous task
-    pass
+    start_index = (page - 1) * page_size
+    end_index = start_index + page_size
+    return (start_index, end_index)
 
 
 class Server:
@@ -52,8 +59,11 @@ class Server:
         Returns:
             List[List]: A list of rows for the requested page
         """
-        # TODO: Copy your implementation from previous task
-        pass
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        all_data = self.dataset()
+        start_index, end_index = index_range(page, page_size)
+        return all_data[start_index:end_index]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """
@@ -72,12 +82,25 @@ class Server:
                 - prev_page: number of the previous page, None if no previous
                 page
                 - total_pages: the total number of pages in the dataset
-
-        TODO: Implement this method
-        Hints:
-        1. Use get_page() to get the data
-        2. Calculate total_pages using len(self.dataset()) and page_size
-        3. Determine next_page and prev_page based on current page
-        4. You might need the math module for calculations
         """
-        pass
+        total_pages = math.ceil(len(self.dataset()) / page_size)
+        data = self.get_page(page, page_size)
+
+        if page > 1:
+            prev_page = page - 1
+        else:
+            prev_page = None
+
+        if (page < total_pages):
+            next_page = page + 1
+        else:
+            next_page = None
+
+        return {
+            'page_size': len(data),
+            'page': page,
+            'data': data,
+            'next_page': next_page,
+            'prev_page': prev_page,
+            'total_pages': total_pages
+        }
