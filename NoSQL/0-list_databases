@@ -1,2 +1,2 @@
 // Script to list all database
-listDatabases
+show dbs
