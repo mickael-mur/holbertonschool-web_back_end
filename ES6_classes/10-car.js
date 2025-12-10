@@ -1,5 +1,15 @@
-// TODO: Implement Car class
-// Constructor: brand (String), motor (String), color (String)
-// - Store in _brand, _motor, _color
-// - Implement cloneCar method that returns a new object of the class
-// Hint: Use Symbol.species or this.constructor to handle inheritance
+export default class Car {
+  constructor(brand, motor, color) {
+    this._brand = brand;
+    this._motor = motor;
+    this._color = color;
+  }
+
+  toString() {
+    return this._brand;
+  }
+
+  cloneCar() {
+    return new this.constructor();
+  }
+}
