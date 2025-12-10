@@ -5,6 +5,10 @@ export default class Pricing {
         this._amount = amount
         this._currency = currency
     }
+
+    static convertPrice(amount, conversionRate) {
+        return amount * conversionRate;
+    }
     //getter
     get amount() {
         return this._amount;
