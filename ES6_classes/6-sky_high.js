@@ -1,7 +1,34 @@
-// TODO: Import Building from 5-building.js
-// TODO: Implement SkyHighBuilding class that extends Building
-// Constructor: sqft (Number), floors (Number)
-// - sqft must be assigned to parent class Building
-// - Store floors in _floors
-// - Implement getter for each attribute
-// - Override evacuationWarningMessage: return "Evacuate slowly the NUMBER_OF_FLOORS floors"
+import Building from './5-building.js';
+
+export default class SkyHighBuilding extends Building {
+    constructor(sqft, floors) {
+        super(sqft)
+        this._floors = floors
+    }
+    //getters
+    get sqft() {
+        return this._sqft;
+    }
+
+    get floors() {
+        return this._floors;
+    }
+    //setters
+    set sqft(value) {
+        if (typeof value !== "number" || Number.isNaN(value)) {
+            throw new TypeError('sqft must be an integer')
+        }
+        this._sqft = value;
+    }
+
+    set floors(value) {
+        if (typeof value !== "number" || Number.isNaN(value)) {
+            throw new TypeError('floors must be an integer')
+        }
+        this._floors = value;
+    }
+
+    evacuationWarningMessage() {
+        return `Evacuate slowly the ${this._floors} floors`
+    }
+}
