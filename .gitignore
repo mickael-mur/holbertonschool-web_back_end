@@ -133,6 +133,19 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
+# Node.js / JavaScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+.eslintcache
+*.tsbuildinfo
+
+# Setup scripts (personal environment)
+nodesource_setup.sh
+
 # GitHub Copilot
 .copilot/
 .copilot*
