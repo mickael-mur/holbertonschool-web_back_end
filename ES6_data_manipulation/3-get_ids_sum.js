@@ -1,2 +1,3 @@
-// TODO: Create a function getStudentIdsSum that returns the sum of all student ids
-// Must use the reduce function
+export default function getStudentIdsSum(students) {
+    return students.reduce((sum, student) => sum + student.id, 0);
+}
