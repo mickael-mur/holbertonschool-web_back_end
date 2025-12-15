@@ -1,2 +1,3 @@
-// TODO: Create a function getStudentsByLocation that filters students by city
-// Must use the filter function
+export default function getStudentsByLocation(students, city) {
+    return students.filter((student) => student.location === city)
+};

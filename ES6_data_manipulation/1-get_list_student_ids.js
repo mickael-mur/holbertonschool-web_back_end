@@ -1,3 +1,6 @@
-// TODO: Create a function getListStudentIds that returns an array of ids
-// Must use the map function
-// Return empty array if argument is not an array
+export default function getListStudentIds(students) {
+  if (!Array.isArray(students)) {
+    return [];
+  }
+  return students.map((student) => student.id);
+}
