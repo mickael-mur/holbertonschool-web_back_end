@@ -1,3 +1,10 @@
-// TODO: Create a function updateUniqueItems
-// Updates map items with quantity 1 to 100
-// Throw error "Cannot process" if argument is not a map
+export default function updateUniqueItems(map) {
+    if ((!map instanceof Map)) {
+        throw new TypeError('Cannot process')
+    };
+    map.forEach((value, key) => {
+        if (value === 1) {
+            map.set(key, 100);
+        }
+    });
+}
