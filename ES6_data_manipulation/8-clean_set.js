@@ -5,10 +5,12 @@ export default function cleanSet(set, startString) {
     if (startString === null || startString === '') {
         return ''
     }
+    if (!(set instanceof Set)) {
+        return '';
+    }
     const result = []
     for (const value of set) {
        if (value.startsWith(startString)) {
-        value.slice(startString.length)
         result.push(value.slice(startString.length))
        }
     }
