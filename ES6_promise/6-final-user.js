@@ -8,15 +8,15 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   ])
   .then((results) => {
     return results.map((result) => {
-      if (result.status === 'rejected') {
+      if (result.status === 'fulfilled') {
         return {
           status: result.status,
-          value: result.reason,
+          value: result.value,
         };
       }
       return {
         status: result.status,
-        value: result.value,
+        value: result.reason.toString(),
       };
     });
   });
