@@ -1,3 +1,12 @@
 export default function signUpUser(firstName, lastName) {
-  // TODO: Implement
+    return new Promise((resolve, reject) => {
+    if (typeof firstName === 'string' && typeof lastName === 'string') {
+      resolve({
+        firstName,
+        lastName,
+      });
+    } else {
+      reject(new Error());
+    }
+  });
 }
