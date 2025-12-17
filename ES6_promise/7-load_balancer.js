@@ -1,3 +1,4 @@
 export default function loadBalancer(chinaDownload, USDownload) {
-  // TODO: Implement
+  return Promise.race([
+    chinaDownload, USDownload]);
 }
