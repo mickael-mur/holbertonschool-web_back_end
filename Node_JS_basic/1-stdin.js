@@ -1,6 +1,9 @@
-console.log("Welcome to Holberton School, what is your name?\n")
+console.log('Welcome to Holberton School, what is your name?');
 process.stdin.on('data', (data) => {
-    let dataBinaries = data;
-    let string = dataBinaries.toString();
-    console.log('Your name is: ', string)
-})
+  const name = data.toString();
+  process.stdout.write(`Your name is: ${name}`);
+});
+
+process.stdin.on('end', () => {
+  console.log('This important software is now closing');
+});
