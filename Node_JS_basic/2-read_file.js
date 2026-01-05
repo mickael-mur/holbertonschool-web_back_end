@@ -10,17 +10,13 @@ module.exports = function countStudents(path) {
         students.forEach((element) => {
             const result = element.split(',');
             if (element != "" && result[0] != "firstname") {
-                let firstName = result[0];
-                let lastName = result[1];
-                let age = result[2];
-                let domain = result[3];
+                const domain = result[3];
                 if (!fieldGroups[domain]) {
                     fieldGroups[domain] = [];
                 }
                 fieldGroups[domain].push(result[0]);
             }
         })
-        const fieldResult = Object.keys(fieldGroups);
         let sumResult = 0;
         for (domain in fieldGroups) {
             sumResult += fieldGroups[domain].length;
