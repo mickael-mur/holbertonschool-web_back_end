@@ -22,7 +22,7 @@ const app = createServer((req, res) => {
       })
       .catch((error) => {
         console.log = originalLog;
-        res.end(`Unable to load the database: ${error.message}`);
+        res.end(`This is the list of our students\n${error.message}`);
       });
   }
 });
