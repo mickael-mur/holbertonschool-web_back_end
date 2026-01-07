@@ -10,6 +10,7 @@ const countStudents = (path) => {
     console.log(`Number of students: ${studentLines.length}`);
 
     const fields = {};
+    const fieldOrder = [];
 
     for (const line of studentLines) {
       const parts = line.split(',');
@@ -19,12 +20,13 @@ const countStudents = (path) => {
       if (field) {
         if (!fields[field]) {
           fields[field] = [];
+          fieldOrder.push(field);
         }
         fields[field].push(firstname);
       }
     }
 
-    for (const field in fields) {
+    for (const field of fieldOrder) {
       const list = fields[field].join(', ');
       console.log(`Number of students in ${field}: ${fields[field].length}. List: ${list}`);
     }
