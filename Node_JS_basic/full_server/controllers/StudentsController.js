@@ -1,26 +1,44 @@
-/**
- * StudentsController - Contrôleur pour les routes liées aux étudiants
- * 
- * À faire:
- * 1. Créer une classe StudentsController
- * 2. Méthode statique getAllStudents:
- *    - Appeler readDatabase() depuis utils
- *    - Afficher "This is the list of our students"
- *    - Pour chaque field (ordre alphabétique), afficher le nombre et la liste
- *    - Status 200 si succès, 500 si erreur
- * 
- * 3. Méthode statique getAllStudentsByMajor:
- *    - Récupérer le paramètre 'major' de l'URL
- *    - Vérifier que major est CS ou SWE
- *    - Afficher la liste des prénoms pour ce field
- *    - Status 200 si succès, 500 si erreur ou paramètre invalide
- * 
- * Concepts à explorer:
- * - req.params pour récupérer les paramètres d'URL
- * - Validation des paramètres utilisateur
- * - Gestion d'erreurs dans un contrôleur
- * - async/await avec les Promises
- * - Comment trier un objet par clés (ordre alphabétique)
- * 
- * Indice: process.argv[2] pour récupérer le nom du fichier database
- */
+import readDatabase from '../utils';
+
+class StudentsController {
+  static getAllStudents(req, res) {
+    const database = process.argv[2];
+
+    readDatabase(database)
+      .then((fieldGroups) => {
+        let output = 'This is the list of our students\n';
+        const fields = Object.keys(fieldGroups).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
+        fields.forEach((field) => {
+          const list = fieldGroups[field].join(', ');
+          output += `Number of students in ${field}: ${fieldGroups[field].length}. List: ${list}\n`;
+        });
+
+        res.status(200).send(output.trim());
+      })
+      .catch(() => {
+        res.status(500).send('Cannot load the database');
+      });
+  }
+
+  static getAllStudentsByMajor(req, res) {
+    const { major } = req.params;
+    const database = process.argv[2];
+
+    if (major !== 'CS' && major !== 'SWE') {
+      res.status(500).send('Major parameter must be CS or SWE');
+      return;
+    }
+
+    readDatabase(database)
+      .then((fieldGroups) => {
+        const list = fieldGroups[major] ? fieldGroups[major].join(', ') : '';
+        res.status(200).send(`List: ${list}`);
+      })
+      .catch(() => {
+        res.status(500).send('Cannot load the database');
+      });
+  }
+}
+
+export default StudentsController;
