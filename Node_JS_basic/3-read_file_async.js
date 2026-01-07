@@ -12,7 +12,7 @@ module.exports = function countStudents(path) {
       const fieldGroups = {};
       students.forEach((element) => {
         const result = element.split(',');
-        if (element != '' && result[0] != 'firstname') {
+        if (element !== '' && result[0] !== 'firstname') {
           const domain = result[3];
           if (!fieldGroups[domain]) {
             fieldGroups[domain] = [];
@@ -22,13 +22,17 @@ module.exports = function countStudents(path) {
       });
       let sumResult = 0;
       for (const domain in fieldGroups) {
-        sumResult += fieldGroups[domain].length;
+        if (Object.prototype.hasOwnProperty.call(fieldGroups, domain)) {
+          sumResult += fieldGroups[domain].length;
+        }
       }
       console.log(`Number of students: ${sumResult}`);
 
       for (const domain in fieldGroups) {
-        const list = fieldGroups[domain].join(', ');
-        console.log(`Number of students in ${domain}: ${fieldGroups[domain].length}. List: ${list}`);
+        if (Object.prototype.hasOwnProperty.call(fieldGroups, domain)) {
+          const list = fieldGroups[domain].join(', ');
+          console.log(`Number of students in ${domain}: ${fieldGroups[domain].length}. List: ${list}`);
+        }
       }
 
       resolve();
