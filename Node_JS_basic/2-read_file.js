@@ -10,28 +10,33 @@ const countStudents = (path) => {
 
   const lines = data.split('\n');
   const students = [];
-  
-  for (let i = 0; i < lines.length; i += 1) {
-    if (lines[i] && i !== 0) {
-      students.push(lines[i].split(','));
+
+  for (let i = 1; i < lines.length; i += 1) {
+    const line = lines[i].trim();
+    if (line) {
+      const fields = line.split(',');
+      if (fields.length === 4) {
+        students.push(fields);
+      }
     }
   }
 
   console.log(`Number of students: ${students.length}`);
 
-  const fields = {};
+  const fieldGroups = {};
   const fieldOrder = [];
 
   for (const student of students) {
-    if (!fields[student[3]]) {
-      fields[student[3]] = [];
-      fieldOrder.push(student[3]);
+    const field = student[3];
+    if (!fieldGroups[field]) {
+      fieldGroups[field] = [];
+      fieldOrder.push(field);
     }
-    fields[student[3]].push(student[0]);
+    fieldGroups[field].push(student[0]);
   }
 
   for (const field of fieldOrder) {
-    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+    console.log(`Number of students in ${field}: ${fieldGroups[field].length}. List: ${fieldGroups[field].join(', ')}`);
   }
 };
 
