@@ -1,10 +1,6 @@
 const fs = require('fs');
 
 const countStudents = (path) => {
-  if (!fs.existsSync(path)) {
-    throw new Error('Cannot load the database');
-  }
-
   let data;
   try {
     data = fs.readFileSync(path, 'utf8');
@@ -13,35 +9,29 @@ const countStudents = (path) => {
   }
 
   const lines = data.split('\n');
-  const students = lines.filter((line) => {
-    const trimmed = line.trim();
-    return trimmed !== '' && !trimmed.startsWith('firstname');
-  });
+  const students = [];
+  
+  for (let i = 0; i < lines.length; i += 1) {
+    if (lines[i] && i !== 0) {
+      students.push(lines[i].split(','));
+    }
+  }
 
   console.log(`Number of students: ${students.length}`);
 
   const fields = {};
   const fieldOrder = [];
 
-  for (const line of students) {
-    const parts = line.split(',');
-    if (parts.length >= 4) {
-      const firstname = parts[0];
-      const field = parts[3];
-
-      if (field && firstname) {
-        if (!fields[field]) {
-          fields[field] = [];
-          fieldOrder.push(field);
-        }
-        fields[field].push(firstname);
-      }
+  for (const student of students) {
+    if (!fields[student[3]]) {
+      fields[student[3]] = [];
+      fieldOrder.push(student[3]);
     }
+    fields[student[3]].push(student[0]);
   }
 
   for (const field of fieldOrder) {
-    const list = fields[field].join(', ');
-    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${list}`);
+    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
   }
 };
 
