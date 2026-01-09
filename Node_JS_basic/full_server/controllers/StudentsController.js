@@ -7,7 +7,9 @@ class StudentsController {
     readDatabase(database)
       .then((fieldGroups) => {
         let output = 'This is the list of our students\n';
-        const fields = Object.keys(fieldGroups).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+        const fields = Object.keys(fieldGroups).sort(
+          (a, b) => a.toLowerCase().localeCompare(b.toLowerCase()),
+        );
 
         fields.forEach((field) => {
           const list = fieldGroups[field].join(', ');
